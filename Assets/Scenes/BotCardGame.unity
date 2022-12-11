@@ -540,8 +540,10 @@ MonoBehaviour:
   netPlayerPrefab: {fileID: 3663717233273873108, guid: c521294134e952e4fba7fc3fbe0d2743, type: 3}
   P1: {fileID: 420342559}
   P2: {fileID: 1825299644}
-  restoreValue: 5
-  damageValue: 20
+  defaultPlayerStats:
+    MaxHealth: 100
+    RestoreValue: 5
+    DamageValue: 10
   State: 1
   NextState: 1
   gameOverPanel: {fileID: 2068850758}
@@ -1506,15 +1508,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 486a7d03d7c2e884ca1d52c087846692, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  chosenCard: {fileID: 0}
   atkPosRef: {fileID: 2058070077}
-  Health: 100
-  MaxHealt: 100
+  chosenCard: {fileID: 0}
   nameText: {fileID: 786270579}
-  healtText: {fileID: 1174295885}
+  healthText: {fileID: 1174295885}
   healthBar: {fileID: 1756518398}
+  Health: 100
+  stats:
+    MaxHealth: 100
+    RestoreValue: 5
+    DamageValue: 10
   audioSource: {fileID: 502926392}
   damageClip: {fileID: 8300000, guid: 7c47b20bb9874304a809dc5580d403ba, type: 3}
+  IsReady: 0
 --- !u!1 &437990777
 GameObject:
   m_ObjectHideFlags: 0
@@ -2586,7 +2592,7 @@ GameObject:
   - component: {fileID: 571648265}
   - component: {fileID: 571648264}
   m_Layer: 5
-  m_Name: P2 Healt Text (TMP)
+  m_Name: P2 Health Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2718,7 +2724,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 729290489}
-  - component: {fileID: 729290490}
   m_Layer: 5
   m_Name: Menu
   m_TagString: Untagged
@@ -2748,27 +2753,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: -960}
   m_SizeDelta: {x: 1080, y: 1920}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &729290490
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 729290488}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 486a7d03d7c2e884ca1d52c087846692, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  chosenCard: {fileID: 0}
-  atkPosRef: {fileID: 0}
-  Health: 100
-  MaxHealt: 100
-  nameText: {fileID: 0}
-  healtText: {fileID: 0}
-  healthBar: {fileID: 0}
-  audioSource: {fileID: 502926392}
-  damageClip: {fileID: 8300000, guid: e682aec3fd9a051428ad902455e1fa39, type: 3}
 --- !u!1 &754841798
 GameObject:
   m_ObjectHideFlags: 0
@@ -4062,7 +4046,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1054705958
 GameObject:
@@ -4248,7 +4232,7 @@ GameObject:
   - component: {fileID: 1174295886}
   - component: {fileID: 1174295885}
   m_Layer: 5
-  m_Name: P1 Healt Text (TMP)
+  m_Name: P1 Health Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4961,6 +4945,51 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1474127283}
   m_CullTransparentMesh: 1
+--- !u!1 &1559071706
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1559071708}
+  - component: {fileID: 1559071707}
+  m_Layer: 0
+  m_Name: UGS
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1559071707
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1559071706}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e70e63835d7b97479785ef05e39404e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  environmentName: production
+--- !u!4 &1559071708
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1559071706}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 304, y: 152, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1606640671
 GameObject:
   m_ObjectHideFlags: 0
@@ -5769,11 +5798,12 @@ MonoBehaviour:
   player: {fileID: 1825299644}
   gameManager: {fileID: 218434028}
   stats:
-    Name: 
-    ChoosingInterval: 0
-    MaxHealth: 0
-    RestoreValue: 0
-    DamageValue: 0
+    Name: Default
+    ChoosingInterval: 0.2
+    MaxHealth: 100
+    RestoreValue: 5
+    DamageValue: 10
+  IsReady: 0
 --- !u!4 &1817994378
 Transform:
   m_ObjectHideFlags: 0
@@ -5824,6 +5854,8 @@ MonoBehaviour:
     MaxHealth: 200
     RestoreValue: 15
     DamageValue: 20
+  enableRemotConfig: 1
+  difficultyKey: Difficulty
 --- !u!1 &1825299642
 GameObject:
   m_ObjectHideFlags: 0
@@ -5878,15 +5910,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 486a7d03d7c2e884ca1d52c087846692, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  chosenCard: {fileID: 0}
   atkPosRef: {fileID: 1030981360}
-  Health: 100
-  MaxHealt: 100
+  chosenCard: {fileID: 0}
   nameText: {fileID: 1054705960}
-  healtText: {fileID: 571648264}
+  healthText: {fileID: 571648264}
   healthBar: {fileID: 325180951}
+  Health: 100
+  stats:
+    MaxHealth: 100
+    RestoreValue: 5
+    DamageValue: 10
   audioSource: {fileID: 502926392}
-  damageClip: {fileID: 8300000, guid: e682aec3fd9a051428ad902455e1fa39, type: 3}
+  damageClip: {fileID: 8300000, guid: 7c47b20bb9874304a809dc5580d403ba, type: 3}
+  IsReady: 0
 --- !u!1 &1853221511
 GameObject:
   m_ObjectHideFlags: 0

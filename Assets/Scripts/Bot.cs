@@ -8,18 +8,34 @@ public class Bot : MonoBehaviour
     public CardGameManager gameManager;
     public BotStats stats;
     private float timer = 0;
-    int lastSelected;
+    int lastSelected = 0;
     Card[] cards;
+    public bool IsReady = false;
 
-    public void SetStats(BotStats newStats)
+    public void SetStats(BotStats newStats, bool restoreFullHealth = false)
     {
         this.stats = newStats;
+
+        var newPlayerStats = new PlayerStats
+        {
+            MaxHealth = this.stats.MaxHealth,
+            RestoreValue = this.stats.RestoreValue,
+            DamageValue = this.stats.DamageValue
+        };
+
+        player.SetStats(newPlayerStats, restoreFullHealth);
     }
-    private void Start()
+
+    IEnumerator Start()
     {
         cards = player.GetComponentsInChildren<Card>();
+        
+        yield return new WaitUntil(()=>player.IsReady);
+        SetStats(this.stats);
+        this.IsReady = true;
+
     }
-    private void Update()
+    void Update()
     {
 
 

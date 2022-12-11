@@ -12,8 +12,15 @@ public class CardGameManager : MonoBehaviour, IOnEventCallback
     public GameObject netPlayerPrefab;
     public CardPlayer P1;
     public CardPlayer P2;
-    public float restoreValue = 5;
-    public float damageValue = 20;
+
+    public PlayerStats defaultPlayerStats = new PlayerStats
+    {
+        MaxHealth = 100,
+        RestoreValue = 5,
+        DamageValue = 10
+    };
+
+    
     public GameState State, NextState = GameState.NetPlayersInitialization;
     private CardPlayer damagedPlayer;
     private CardPlayer winner;
@@ -37,6 +44,7 @@ public class CardGameManager : MonoBehaviour, IOnEventCallback
     private void Start()
     {
         gameOverPanel.SetActive(false);
+    
         if (online)
         {
             PhotonNetwork.Instantiate(netPlayerPrefab.name, Vector3.zero, Quaternion.identity);
@@ -45,17 +53,23 @@ public class CardGameManager : MonoBehaviour, IOnEventCallback
             NextState = GameState.NetPlayersInitialization;
             if (PhotonNetwork.CurrentRoom.CustomProperties.TryGetValue(PropertyNames.Room.RestoreValue, out var restoreValue))
             {
-                this.restoreValue = (float)restoreValue;
+                defaultPlayerStats.RestoreValue = (float) restoreValue;
+                
             }
             if (PhotonNetwork.CurrentRoom.CustomProperties.TryGetValue(PropertyNames.Room.DamageValue, out var damageValue))
             {
-                this.damageValue = (float)damageValue;
+                defaultPlayerStats.DamageValue = (float) damageValue;
             }
         }
         else
         {
             State = GameState.ChooseAttack;
         }
+
+        P1.SetStats(defaultPlayerStats,true);
+        P2.SetStats(defaultPlayerStats,true);
+        P1.IsReady = true;
+        P2.IsReady = true;
     }
     private void Update()
     {
@@ -118,13 +132,13 @@ public class CardGameManager : MonoBehaviour, IOnEventCallback
                     //Calculate healt
                     if (damagedPlayer == P1)
                     {
-                        P1.ChangeHealt(-damageValue);
-                        P2.ChangeHealt(restoreValue);
+                        P1.ChangeHealth(-P2.stats.DamageValue);
+                        P2.ChangeHealth(P2.stats.RestoreValue);
                     }
                     else
                     {
-                        P1.ChangeHealt(restoreValue);
-                        P2.ChangeHealt(-damageValue);
+                        P1.ChangeHealth(P1.stats.RestoreValue);
+                        P2.ChangeHealth(-P1.stats.DamageValue);
                     }
                     var winner = GetWinner();
                     if (winner == null)
